@@ -1,0 +1,9 @@
+
+body{
+    padding: 25px;
+}
+
+hr{
+    height: 5px;
+    background: url("../img/hr.svg") no-repeat 100% 100%;
+}
