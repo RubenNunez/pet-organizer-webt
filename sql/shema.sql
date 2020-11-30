@@ -1,13 +1,22 @@
 /*
     Zusatztechnik Serverseitige Persistenz:
+    dieses Script ertellt das nötige Shema für die Webapplikation.
+    Mit der Datenbanek wird die Serverseitige Persistenz sichergestellt.
+    Es werden bereits Daten eingefügt, sodass diejenige Person die diese MEP
+    korrigiert, nicht selber einen Account erstellen muss.
+
+    - das Script wurde von hand erstellt, sodass ja
+      keine Konflikte beim wieder einspielen auftreten
+    - nur einfachste MySQL Syntax wurde verwendet :) !!!
  */
 
+-- Falls datenbank bereits vorhanden -> zuerst löschen
 drop database if exists pet_organizer;
 
--- Database schema "pet-organizer"
+-- Database schema "pet-organizer" wird erstellt, wenn nicht schon vorhanden
 create database if not exists pet_organizer;
 
--- create the user table
+-- Erstellen users Tabelle
 create table if not exists users(userId int not null AUTO_INCREMENT,
                   username varchar(100) unique not null,
                   email varchar(100) unique not null,
@@ -15,8 +24,8 @@ create table if not exists users(userId int not null AUTO_INCREMENT,
                   tel varchar(100),
                   primary key(userId));
 
--- create the pet table
-create table if not exists pet(id int primary key,
+-- Erstellen pets Tabelle
+create table if not exists pets(id int primary key,
                  name varchar(100) not null,
                  birthday date,
                  chipId int unique null,
