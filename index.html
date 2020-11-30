@@ -47,6 +47,10 @@
         <section id="pets_section">
             <h2>My Pets</h2>
             ...
+            <form id="logout-form" action="php/login.php" method="post">
+                <input name="mode" type="hidden" value="logout">
+                <button type="submit" class="w3-btn w3-blue">Logout</button>
+            </form>
             <hr>
         </section>
 
@@ -55,32 +59,34 @@
             <div class="w3-row">
                 <div class="w3-half w3-mobile w3-padding-16">
                     <p>Du hast bereits ein Login</p>
-                    <form id="login-form">
+                    <form id="login-form" action="php/login.php" method="post">
                         <label class="w3-text">Username</label>
-                        <input class="w3-input w3-border" type="text">
+                        <input name="username" class="w3-input w3-border" type="text">
                         <br>
                         <label class="w3-text">Password</label>
-                        <input class="w3-input w3-border" type="text">
+                        <input name="password" class="w3-input w3-border" type="password">
                         <br>
-                        <button class="w3-btn w3-blue">Login</button>
+                        <input name="mode" type="hidden" value="login">
+                        <button type="submit" class="w3-btn w3-blue">Login</button>
                     </form>
                 </div>
                 <div class="w3-half w3-mobile w3-padding-16">
-                    <form id="register-form" class="w3-card">
+                    <form id="register-form" class="w3-card" action="php/login.php" method="post">
                         <p><strong>Registrieren</strong></p>
                         <br>
                         <label class="w3-text">Username</label>
-                        <input class="w3-input w3-border" type="text">
+                        <input name="username" class="w3-input w3-border" type="text">
                         <br>
                         <label class="w3-text">Email</label>
-                        <input class="w3-input w3-border" type="text">
+                        <input name="email" class="w3-input w3-border" type="text">
                         <br>
                         <label class="w3-text">Password</label>
-                        <input class="w3-input w3-border" type="text">
+                        <input name="password" class="w3-input w3-border" type="text">
                         <br>
                         <label class="w3-text">Telefon</label>
-                        <input class="w3-input w3-border" type="text">
+                        <input name="tel" class="w3-input w3-border" type="text">
                         <br>
+                        <input name="mode" type="hidden" value="register">
                         <button class="w3-btn w3-blue">Registrieren</button>
                     </form>
                 </div>
@@ -100,7 +106,8 @@
             <h2>Feedback</h2>
             <form id="feedback-form">
                 <label class="w3-text">Nachricht</label>
-                <textarea name="message" placeholder="Schreibe mir eine Nachricht =)" class="w3-input w3-border" rows="5" cols="50"></textarea>
+                <textarea name="message" placeholder="Schreibe mir eine Nachricht =)" class="w3-input w3-border"
+                          rows="5" cols="50"></textarea>
                 <br>
                 <button class="w3-btn w3-blue">senden</button>
             </form>
@@ -118,4 +125,5 @@
 </footer>
 
 </body>
+<script src="js/main.js"></script>
 </html>

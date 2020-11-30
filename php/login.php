@@ -46,9 +46,10 @@ function login(){
         // das eingegebene Password wird verglichen
         if(password_verify($password, $row['password'])){
             echo "<p>Login erfolgreich</p>";
-            session_start(); // Session wird erstellt 2h
+            session_start(); // Session wird erstellt für 2h
             $_SESSION['expire'] = time() + 3600 * 2;
             setcookie('user', $row['username'], time() + 3600 * 2, '/');
+            setcookie('login', 'true', time() + 3600 * 2, '/');
             echo "<p>success</p>";
         }else{
             echo "<p>Login fehlgeschlagen</p>";
@@ -64,7 +65,10 @@ function login(){
 function logout(){
     session_start(); // Session wiederaufnehmen
     $_SESSION = []; // Leeren der Sessionvariablen
-    setcookie(session_name(), "", time() - 2^32); // Verfallsdatum in die vergangenheit setzten
+    // Cookies in die Vergangenheit setzen so werden sie gelöscht
+    setcookie(session_name(), null, -1);
+    setcookie('user', null, -1, '/');
+    setcookie('login', null, -1, '/');
     session_destroy(); // Session wird entfernt
 }
 
