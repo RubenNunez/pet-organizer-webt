@@ -24,42 +24,46 @@ if(strcmp($mode, "register") == 0){
 /*-----------HIER SIND DIE FUNKTIONS-DEFINITIONEN-------------*/
 
 function login(){
-    // daten aus POST beziehen
+    // daten aus POST lesen
     $username = $_POST["username"];
     $password = $_POST['password'];
 
-    // verbindung zur Datenbank herstellen
-    $conn= mysqli_connect("localhost", "root", "", "pet_organizer");
-    if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
+    // prüfen ob alle Felder mitgegeben wurden
+    if(isset($username) && isset($password)){
+        // verbindung zur Datenbank herstellen
+        $conn= mysqli_connect("localhost", "root", "", "pet_organizer");
+        if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
 
-    // vorbereiten, binden und ausführen des Statements
-    $stmt = mysqli_prepare($conn, "select username, password from users where username = ? limit 1;");
-    mysqli_stmt_bind_param($stmt,'s', $username);
-    mysqli_stmt_execute($stmt);
+        // vorbereiten, binden und ausführen des Statements
+        $stmt = mysqli_prepare($conn, "select username, password from users where username = ? limit 1;");
+        mysqli_stmt_bind_param($stmt,'s', $username);
+        mysqli_stmt_execute($stmt);
 
-    // das Resultat abholen
-    $res = mysqli_stmt_get_result($stmt);
+        // das Resultat abholen
+        $res = mysqli_stmt_get_result($stmt);
 
-    // prüfen ob überhaupt ein record gefunden wurde für den angefragten user und hash vergleich
-    if($res){
-        $row = mysqli_fetch_assoc($res);
-        // das eingegebene Password wird verglichen
-        if(password_verify($password, $row['password'])){
-            echo "<p>Login erfolgreich</p>";
-            session_start(); // Session wird erstellt für 2h
-            $_SESSION['expire'] = time() + 3600 * 2;
-            setcookie('user', $row['username'], time() + 3600 * 2, '/');
-            setcookie('login', 'true', time() + 3600 * 2, '/');
-            echo "<p>success</p>";
+        // prüfen ob überhaupt ein record gefunden wurde für den angefragten user und hash vergleich
+        if($res){
+            $row = mysqli_fetch_assoc($res);
+            // das eingegebene Password wird verglichen
+            if(password_verify($password, $row['password'])){
+                session_start(); // Session wird erstellt für 2h
+                $_SESSION['expire'] = time() + 3600 * 2;
+                setcookie('user', $row['username'], time() + 3600 * 2, '/');
+                setcookie('login', 'true', time() + 3600 * 2, '/');
+                echo "<p>Login erfolgreich</p>";
+            }else{
+                echo "<p>Login fehlgeschlagen</p>";
+            }
         }else{
-            echo "<p>Login fehlgeschlagen</p>";
+            echo "<p>User nicht gefunden</p>";
         }
-    }else{
-        echo "<p>User nicht gefunden</p>";
-    }
 
-    // schliessen der Verbindung zur Datenbank
-    mysqli_close($conn);
+        // schliessen der Verbindung zur Datenbank
+        mysqli_close($conn);
+        return;
+    }
+    echo "<p>Login fehlgeschlagen</p>";
 }
 
 function logout(){
@@ -115,5 +119,7 @@ function register(){
 
         // schliessen der Verbindung zur Datenbank
         mysqli_close($conn);
+        return;
     }
+    echo "<p>Registrierung fehlgeschlagen</p>";
 }
