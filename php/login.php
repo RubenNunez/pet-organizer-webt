@@ -28,8 +28,9 @@ function login(){
     $username = $_POST["username"];
     $password = $_POST['password'];
 
-    // prüfen ob alle Felder mitgegeben wurden
-    if(isset($username) && isset($password)){
+    // prüfen ob alle Felder mitgegeben wurden und nicht leer sind
+    if(isset($username) && !empty($username) &&
+       isset($password) && !empty($password)){
         // verbindung zur Datenbank herstellen
         $conn= mysqli_connect("localhost", "root", "", "pet_organizer");
         if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
@@ -46,7 +47,7 @@ function login(){
         if($res){
             $row = mysqli_fetch_assoc($res);
             // das eingegebene Password wird verglichen
-            if(password_verify($password, $row['password'])){
+            if(isset($row) && password_verify($password, $row['password'])){
                 session_start(); // Session wird erstellt für 2h
                 $_SESSION['expire'] = time() + 3600 * 2;
                 setcookie('user', $row['username'], time() + 3600 * 2, '/');
@@ -56,7 +57,7 @@ function login(){
                 echo "<p>Login fehlgeschlagen</p>";
             }
         }else{
-            echo "<p>User nicht gefunden</p>";
+            echo "<p>Login fehlgeschlagen</p>";
         }
 
         // schliessen der Verbindung zur Datenbank
@@ -83,8 +84,11 @@ function register(){
     $email = $_POST['email'];
     $tel = $_POST['tel'];
 
-    // prüfen ob alle Felder mitgegeben wurden
-    if(isset($username) && isset($password) && isset($email) && isset($tel)){
+    // prüfen ob alle Felder mitgegeben wurden und auch nicht leer sind
+    if(isset($username) && !empty($username) &&
+       isset($password) && !empty($password) &&
+       isset($email) && !empty($email) &&
+       isset($tel) && !empty($tel)){
         // das eintreffende password mit dem default HASH Algorithmus verrechnet
         $hash=password_hash($password,PASSWORD_DEFAULT);
 

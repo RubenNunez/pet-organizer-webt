@@ -9,6 +9,28 @@
 (function(){
     console.log("Document Ready!")
 
+    // zustand der Seite aktuallisieren
+    update_page();
+
+    // hier werden die Formulare geholt, diese werden per ajax bzw. mit fetch gehandhabt
+    let login_form = document.getElementById("login-form");
+    let logout_form = document.getElementById("logout-form");
+    let register_form = document.getElementById("register-form");
+
+    // hier wird der default event 'submit' sozusagen überschrieben
+    // an dieser stelle möchte ich nicht das standart verhalten des POST Request,
+    // sondern es soll async ausgeführt werden. Das Resultat modifiziert
+    // direkt den DOM
+    login_form.addEventListener('submit', e => async_post_handling(e, update_page));
+    logout_form.addEventListener('submit', e => async_post_handling(e, update_page));
+    register_form.addEventListener('submit', e => async_post_handling(e, update_page));
+
+})();
+
+
+// mit dieser Methode wird der Zustand der Seite aktualisiert
+// wenn Requests gemacht wurden welche den State verändern
+function update_page(){
     // hier werden die Sektionen geholt (je nach loginstate sichtbar bzw unsichtbar)
     let pets_section = document.getElementById("pets_section");
     let login_section = document.getElementById("login_section");
@@ -22,25 +44,11 @@
         login_section.hidden = false;
         pets_section.hidden = true;
     }
+}
 
-
-    // hier werden die Formulare geholt, diese werden per ajax bzw. mit fetch gehandhabt
-    let login_form = document.getElementById("login-form");
-    let logout_form = document.getElementById("logout-form");
-    let register_form = document.getElementById("register-form");
-
-    // hier wird der default event 'submit' sozusagen überschrieben
-    // an dieser stelle möchte ich nicht das standart verhalten des POST Request,
-    // sondern es soll async ausgeführt werden. Das Resultat modifiziert
-    // direkt den DOM
-    login_form.addEventListener('submit', e => async_post_handling(e));
-    logout_form.addEventListener('submit', e => async_post_handling(e));
-    register_form.addEventListener('submit', e => async_post_handling(e));
-
-})();
 
 // Methode um den async post call an das login php script zu senden
-function async_post_handling (e){
+function async_post_handling (e, action){
     const form = e.target;
 
     // asynchrones laden des Login POST Requests
@@ -48,7 +56,10 @@ function async_post_handling (e){
         method: form.method,
         body: new FormData(form)
     }).then(result => result.text())
-        .then(text => console.log(text));
+        .then(text => {
+            console.log(text);
+            action(); // invoke der mitgegebenen action
+        });
 
     // verhindern des standard verhaltens
     e.preventDefault();
