@@ -132,6 +132,7 @@ unter der klasse .text-image */
     background-color: darkgrey;
     height: 300px;
     width: 300px;
+    cursor: pointer;
 }
 
 .pet-add > *{

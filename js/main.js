@@ -1,11 +1,11 @@
 /*
     In dieser Javascript Datei werden diverse Punkte der Applikation behandelt. Die Sichtbarkeit der Sektionen
-    wir im Zusammenhang mit dem Login verwaltet. Hierzu werden einige AJAX Calls benötigt um im Hintergrund die Login
-    Operationen durchführen zu können.
+    wir im Zusammenhang mit dem Login verwaltet. Hierzu werden einige Async Calls benötigt um im Hintergrund die Login
+    Operationen durchführen zu können. Die Pet "CRUD" Operationen werden auch hier verwaltet.
     Das Zeichnen des Canvas wird ebenfalls hier durchgeführt.
 */
 
-// script am schluss intigrieren
+// script am schluss des HTMLS intigrieren :)
 (function(){
     console.log("Document Ready!")
 
@@ -18,16 +18,18 @@
     let register_form = document.getElementById("register-form");
 
     let create_pet_form = document.getElementById("create-pet-form");
+    let update_pet_form = document.getElementById("update-pet-form");
 
     // hier wird der default event 'submit' sozusagen überschrieben
     // an dieser stelle möchte ich nicht das standart verhalten des POST Request,
     // sondern es soll async ausgeführt werden. Das Resultat modifiziert
-    // direkt den DOM
+    // direkt den DOM (ich möchte keinen Reload)
     login_form.addEventListener('submit', e => async_post_handling(e, update_page));
     logout_form.addEventListener('submit', e => async_post_handling(e, update_page));
     register_form.addEventListener('submit', e => async_post_handling(e, update_page));
 
     create_pet_form.addEventListener('submit', e => async_post_handling(e, update_page));
+    update_pet_form.addEventListener('submit', e => async_post_handling(e, update_page));
 
 })();
 
@@ -48,15 +50,18 @@ function update_page(){
         pets_section.hidden = true;
     }
 
+    // globale variable mit dem array zu den Tieren
+    window.local_pets = [];
+
     // pets abholen
-    read_pets();
+    if(get_cookie('login') == 'true'){ read_pets(); }
 
     // modal schliessen
     document.getElementById('create-pet').style.display='none';
 
 }
 
-// Methode um den async post call an das login php script zu senden
+// Methode um den async post call an die php scripts zu senden
 function async_post_handling (e, action){
     const form = e.target;
 
@@ -97,7 +102,7 @@ function toggle_menu(){
     top_nav.classList.toggle("responsive");
 }
 
-// auslesen der Pets für einen eingeloggten user über Session gelöst
+// auslesen der Pets für einen eingeloggten user (über Session gelöst)
 function read_pets(){
     // formular erstellen
     let formData = new FormData();
@@ -112,9 +117,8 @@ function read_pets(){
         body: formData
     }).then(result => result.json())
         .then(json => {
-
+            // bereinigen der einträge im DOM
             let child = pets_flexbox_container.firstElementChild;
-
             while(child){
                 if(child.classList.contains('pet-add')){
                     break;
@@ -123,14 +127,20 @@ function read_pets(){
                 child = pets_flexbox_container.firstElementChild;
             }
 
-            console.log(json);
+            // erstellen der Einträge
             for (let i = 0; i < json.length; i++) {
                 let pet = json[i];
-                console.log(pet);
+
+                // pet in das lokale array speichern, wenn nicht schon vorhanden
+                let index = window.local_pets.findIndex(x => x.id === pet.id);
+                if(index === -1){
+                    window.local_pets.push(pet);
+                }
+
                 pets_flexbox_container.insertAdjacentHTML('afterbegin',
                     `<div class="pet-box" 
                                id="${pet.id}"
-                               onclick="open_pet_modal(this.id)">
+                               onclick="open_pet_update_modal(this.id)">
                                     <p>${pet.petname}</p>
                                     <p>${pet.birthday}</p>
                           </div>`);
@@ -138,7 +148,35 @@ function read_pets(){
         });
 }
 
+// öffnet ein pet modal und adaptiert gleich den Inhalt des Formulars
+function open_pet_update_modal(id){
+    document.getElementById('update-pet').style.display='block';
+    let form = document.getElementById('update-pet-form');
 
-function open_pet_modal(id){
-    document.getElementById('edit-pet').style.display='block';
+    let index = window.local_pets.findIndex(x => x.id == id);
+    let pet = window.local_pets[index];
+
+    // bereinigen der form inputs
+    let child = form.firstElementChild;
+    while(child){
+        form.removeChild(child);
+        child = form.firstElementChild;
+    }
+
+    // neues Form erstellen
+    form.insertAdjacentHTML('afterbegin',
+        `<p><strong>Update ${pet.petname}</strong></p>
+        <br>
+        <label class="w3-text">Petname</label>
+        <input name="petname" class="w3-input w3-border" type="text" value="${pet.petname}">
+        <br>
+        <label class="w3-text">Geburtstag</label>
+        <input name="birthday" class="w3-input w3-border" type="date" value="${pet.birthday}">
+        <br>
+        <label class="w3-text">ChipId</label>
+        <input name="chipId" class="w3-input w3-border" type="number" value="${pet.chipId}">
+        <br>
+        <input name="crud" type="hidden" value="update">
+        <input name="id" type="hidden" value="${pet.id}">
+        <button type="submit" class="w3-btn w3-blue w3-block">Update</button>`);
 }

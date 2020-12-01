@@ -25,7 +25,7 @@
     <img src="img/logo.svg">
     <br>
     <br>
-    <!-- Anforderung: "Responsive Menu Hamburger siehe style.css" -->
+    <!-- ANFORDERUNG: "Responsive Menu Hamburger siehe style.css" -->
     <nav class="top-nav w3-bar">
         <a href="index.html" class="w3-bar-item w3-button w3-hover-blue">Home</a>
         <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Information</a>
@@ -40,24 +40,24 @@
 
 <main class="w3-container">
     <article>
-        <!-- Anforderung: "Pflicht Information mit min. 1 Paragraph und 1 Bild" -->
+        <!-- ANFORDERUNG: "Pflicht Information mit min. 1 Paragraph und 1 Bild" -->
         <section id="information_section">
             <h1>Pet Organizer</h1>
             <div class="w3-row">
                 <div class="w3-half w3-mobile w3-padding-16">
                     <p>Herzlich Willkommen, mit dieser Webapplikation kannst du deine Haustiere verwalten. Erstelle Einträge mit
-                        deinen Haustieren, füge Notizen und sonnstige Daten zu deinen Tieren</p>
+                        deinen Haustieren, trage die Geburstage deiner Tiere ein und erfasse wichtige Notizen zu deinen liebsten.</p>
                     <h2>Informationen</h2>
-                    <p>Als einheitliches Thema für die MEP wurde eine “Pet Organizer Webapplikation” gewählt.
-                        Dieses Dokument dient der konzeptionellen Darstellung und Planung der Applikation. Die Applikation wird
-                        als Model dargestellt, sodass alle Bewertungskrieterien erfüllt werden.</p>
-                    <p>... hier folgt noch mehr Inhalt</p>
-                    <strong>Verwendete Technologien:</strong>
-                    <ul>
-                        <li>PHP, MariaDB, Apache</li>
-                        <li>W3.CSS (aus der Aufgabenstellung muss url absolut verwiesen werden)</li>
-                        <li>Vue.js (aus der Aufgabenstellung muss url absolut verwiesen werden)</li>
-                    </ul>
+                    <p>Als einheitliches Thema für die MEP WEBT wurde eine “Pet Organizer” Webapplikation gewählt. Die Applikation implementiert
+                       ein einfaches Login / Registreirungssystem, ähnlich wie aus dem Unterricht. Es existiert ein "login.php" darin wird
+                       die Serverseitige-Login-Funktionalität behandelt.</p>
+                    <p>Im weiteren können eingeloggte User Haustiere erfassen. Es stehen bereits zwei Accounts bereit, falls dich
+                       der User nicht registrieren möchte: admin:admin! und service:service!</p>
+                    <p>Im Canvas wird ein Pi-Chart gezeichnet mit der Verteilung der Tiere Katzen/Hunde.
+                       Das Canvas muss mit dem Button "Ausführen" getriggert werden.</p>
+                    <p>Als letzte Sektion wurde ein Feedback Formular erstellt, darin werden alle Anforderungen für Formulare abgearbeitet.</p>
+                    <p>Ich empfehle noch das README.md zu lesen und das Repository dieser Webseite zu besuchen (siehe README.md)</p>
+                    <strong>Ich wünsche dem User viel spass auf dem Pet Organizer!</strong>
                 </div>
                 <div class="w3-half w3-mobile w3-padding-16 text-image">
                     <img src="img/kiko.png">
@@ -67,7 +67,7 @@
             </div>
             <hr>
         </section>
-        <!-- Anforderung: "Zusatz Server Persistenz PHP MyPets" -->
+        <!-- ANFORDERUNG: "Zusatz Server Persistenz PHP MyPets" -->
         <section id="pets_section">
             <h2>My Pets</h2>
             <div class="pets-flexbox-container">
@@ -166,20 +166,20 @@
                     <input name="chipId" class="w3-input w3-border" type="number">
                     <br>
                     <input name="crud" type="hidden" value="create">
-                    <button type="submit" class="w3-btn w3-blue">Create</button>
+                    <button type="submit" class="w3-btn w3-blue w3-block">Create</button>
                 </form>
             </div>
         </div>
     </div>
 
     <!-- Edit Formular wird im Javascript bearbeitet -->
-    <div id="edit-pet" class="w3-modal">
+    <div id="update-pet" class="w3-modal">
         <div class="w3-modal-content">
             <div class="w3-container">
-            <span onclick="document.getElementById('edit-pet').style.display='none'"
+            <span onclick="document.getElementById('update-pet').style.display='none'"
                   class="w3-btn w3-blue w3-display-topright">&times;</span>
-                <form id="edit-pet-form" action="php/pets.php" method="post">
-                    <p><strong>Edit Pet</strong></p>
+                <form id="update-pet-form" action="php/pets.php" method="post">
+                    <p><strong>Update Pet</strong></p>
                     <br>
                     <label class="w3-text">Petname</label>
                     <input name="petname" class="w3-input w3-border" type="text">
@@ -198,7 +198,6 @@
                     <input name="crud" type="hidden" value="delete">
                     <button type="submit" class="w3-btn w3-red w3-block">Delete</button>
                 </form>
-
             </div>
         </div>
     </div>
