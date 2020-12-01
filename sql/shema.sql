@@ -25,16 +25,22 @@ create table if not exists users(userId int not null AUTO_INCREMENT,
                   primary key(userId));
 
 -- Erstellen pets Tabelle
-create table if not exists pets(id int primary key,
-                 name varchar(100) not null,
+create table if not exists pets(petId int not null AUTO_INCREMENT,
+                 petname varchar(100) not null,
                  birthday date,
                  chipId int unique null,
                  userId int,
+                 primary key(petId),
                  constraint fk_userId
                  foreign key (userId) references users(userId));
 
 -- hier werden bereits zwei user erstellt: (username:password) admin:admin! und service:service!
 insert into users(username, email, password, tel)
 values ('admin', 'admin@pet-organizer.com', '$2y$10$VC.cX/R00BMQSaKqFhVwS.nWfMdIaD3in6m0tEp9cJIYFmJ1uraxS', '+41123456891'),
-       ('service', 'service@pet-organizer.com', '$2y$10$xZRCRxwg4tOfX8ojHgJZIOnesOpm8aiz7Bzrcmh.yb04GN1pG0bUu', '+41123456891')
+       ('service', 'service@pet-organizer.com', '$2y$10$xZRCRxwg4tOfX8ojHgJZIOnesOpm8aiz7Bzrcmh.yb04GN1pG0bUu', '+41123456891');
+
+-- hier werden auch schon zwei Tiere dem Admin zugeordnet bzw. hinzugefügt
+insert into pets(petname, birthday, chipId, userId)
+values ('kiko', 'März 2020', 123456, 1),
+       ('Lina', 'Juni 2017', 234567, 1);
 

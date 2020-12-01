@@ -31,7 +31,7 @@
         <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Information</a>
         <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Canvas</a>
         <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Feedbackformular</a>
-        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+        <a href="javascript:void(0);" class="icon" onclick="toggle_menu()">
             <i class="fa fa-bars"></i>
         </a>
     </nav>
@@ -70,7 +70,12 @@
         <!-- Anforderung: "Zusatz Server Persistenz PHP MyPets" -->
         <section id="pets_section">
             <h2>My Pets</h2>
-            ...
+            <div class="pets-flexbox-container">
+                <div class="pet-add pet-box">
+                    <button onclick="document.getElementById('create-pet').style.display='block'"
+                            class="w3-btn w3-blue">Pet hinzufügen</button>
+                </div>
+            </div>
             <form id="logout-form" action="php/login.php" method="post">
                 <input name="mode" type="hidden" value="logout">
                 <button type="submit" class="w3-btn w3-blue">Logout</button>
@@ -141,7 +146,31 @@
 </main>
 
 <aside>
-
+    <!-- Im Aside packe ich alle meine Modals hinein also
+         Pet Erstellen, Bearbeiten Modal und Status Meldung -->
+    <div id="create-pet" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+            <span onclick="document.getElementById('create-pet').style.display='none'"
+                  class="w3-btn w3-blue w3-display-topright">&times;</span>
+                <form id="create-pet-form" action="php/pets.php" method="post">
+                    <p><strong>Create Pet</strong></p>
+                    <br>
+                    <label class="w3-text">Petname</label>
+                    <input name="petname" class="w3-input w3-border" type="text">
+                    <br>
+                    <label class="w3-text">Geburtstag</label>
+                    <input name="birthday" class="w3-input w3-border" type="text">
+                    <br>
+                    <label class="w3-text">ChipId</label>
+                    <input name="password" class="w3-input w3-border" type="text">
+                    <br>
+                    <input name="crud" type="hidden" value="create">
+                    <button type="submit" class="w3-btn w3-blue">Create</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </aside>
 
 <footer class="w3-container w3-center">

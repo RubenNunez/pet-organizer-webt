@@ -17,6 +17,8 @@
     let logout_form = document.getElementById("logout-form");
     let register_form = document.getElementById("register-form");
 
+    let create_pet_form = document.getElementById("create-pet-form");
+
     // hier wird der default event 'submit' sozusagen überschrieben
     // an dieser stelle möchte ich nicht das standart verhalten des POST Request,
     // sondern es soll async ausgeführt werden. Das Resultat modifiziert
@@ -25,8 +27,9 @@
     logout_form.addEventListener('submit', e => async_post_handling(e, update_page));
     register_form.addEventListener('submit', e => async_post_handling(e, update_page));
 
-})();
+    create_pet_form.addEventListener('submit', e => async_post_handling(e), update_page);
 
+})();
 
 // mit dieser Methode wird der Zustand der Seite aktualisiert
 // wenn Requests gemacht wurden welche den State verändern
@@ -37,15 +40,16 @@ function update_page(){
 
     // überprüfen ob login cookie gesetzt wurde, wenn so muss die login sektion nicht
     // gezeigt werden
-    if(getCookie('login') == 'true'){
+    if(get_cookie('login') == 'true'){
         login_section.hidden = true;
         pets_section.hidden = false;
+        read_pets(); // pets abholen
     }else{
         login_section.hidden = false;
         pets_section.hidden = true;
     }
-}
 
+}
 
 // Methode um den async post call an das login php script zu senden
 function async_post_handling (e, action){
@@ -58,7 +62,7 @@ function async_post_handling (e, action){
     }).then(result => result.text())
         .then(text => {
             console.log(text);
-            action(); // invoke der mitgegebenen action
+            action(text); // invoke der mitgegebenen action
         });
 
     // verhindern des standard verhaltens
@@ -66,7 +70,7 @@ function async_post_handling (e, action){
 }
 
 // Hilfsmethode um ein Cookie zu lesen
-function getCookie(cookie) {
+function get_cookie(cookie) {
     let name = cookie + "=";
     let decodedCookie = decodeURIComponent(document.cookie);
     let ca = decodedCookie.split(';');
@@ -83,7 +87,31 @@ function getCookie(cookie) {
 }
 
 // Toggle Methode für das Hamburger Menu
-function toggleMenu(){
+function toggle_menu(){
     let top_nav = document.getElementsByClassName("top-nav")[0];
     top_nav.classList.toggle("responsive");
+}
+
+// auslesen der Pets für einen eingeloggten user über Session gelöst
+function read_pets(where, html){
+    // formular erstellen
+    let formData = new FormData();
+    formData.append('crud','read');
+
+    // pets_container abholen
+    let pets_flexbox_container = document.getElementsByClassName("pets-flexbox-container")[0];
+
+    // asynchrones laden der Pets und schreiben ins DOM
+    fetch("/php/pets.php", {
+        method: "post",
+        body: formData
+    }).then(result => result.json())
+        .then(json => {
+            console.log(json);
+            for (let i = 0; i < json.length; i++) {
+                let pet = json[i];
+                console.log(pet);
+                pets_flexbox_container.insertAdjacentHTML('afterbegin',`<div class="pet-box">${pet.petname}</div>`);
+            }
+        });
 }

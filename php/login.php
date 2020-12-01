@@ -36,7 +36,7 @@ function login(){
         if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
 
         // vorbereiten, binden und ausführen des Statements
-        $stmt = mysqli_prepare($conn, "select username, password from users where username = ? limit 1;");
+        $stmt = mysqli_prepare($conn, "select username, password, userId from users where username = ? limit 1;");
         mysqli_stmt_bind_param($stmt,'s', $username);
         mysqli_stmt_execute($stmt);
 
@@ -50,6 +50,7 @@ function login(){
             if(isset($row) && password_verify($password, $row['password'])){
                 session_start(); // Session wird erstellt für 2h
                 $_SESSION['expire'] = time() + 3600 * 2;
+                $_SESSION['userId'] = $row['userId'];
                 setcookie('user', $row['username'], time() + 3600 * 2, '/');
                 setcookie('login', 'true', time() + 3600 * 2, '/');
                 echo "<p>Login erfolgreich</p>";

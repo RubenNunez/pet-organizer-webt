@@ -25,6 +25,11 @@ canvas{
     width: 75%;
 }
 
+/* überschreiben  von w3.css modal fenster und card */
+.w3-modal-content{
+    border-radius: 25px;
+    padding: 25px;
+}
 .w3-card{
     border-radius: 25px;
     padding: 25px;
@@ -104,4 +109,36 @@ unter der klasse .text-image */
         display: block;
         text-align: left;
     }
+}
+
+
+/* Pet Flexbox Bereich Aus dem Unterrichtsblock WEBT-CSS Layouts */
+.pets-flexbox-container{
+    display: flex;
+    flex-flow: row wrap;
+    gap: 25px;
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+@media screen and (max-width: 600px) {
+    .pets-flexbox-container div{
+        flex: 1 0 auto;
+    }
+}
+
+.pet-box{
+    display: block;
+    position: relative;
+    background-color: darkgrey;
+    height: 300px;
+    width: 300px;
+}
+
+.pet-add > *{
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
 }
