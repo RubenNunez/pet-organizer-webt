@@ -3,9 +3,14 @@
     Spziell zu erwähnen sind die SVGs welche verwendet wurden.
     Das HR element beispielsweise wurde so gestaltet, dass eine selbstgezeichnete
     SVG line gezeichnet wird.
-    Die Anforderung für die MEP findet sich bei der Klasse .text-image
+
+    - "Anforderungen" Es wurden einige CSS-Regeln erstellt, davon min. ein Class Selector
+    - "Anforderungen" Scrollen zur Sektion über die Nav
 */
 
+html{
+    scroll-behavior: smooth;
+}
 
 body{
     padding: 25px;

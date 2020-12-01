@@ -3,6 +3,9 @@
     Dieses Script dient zum Login und Registrieren auf der Seite index.html. Um zu unterscheiden welche Aktion
     gemacht werden muss, wird bei den drei Formularen ein hidden input mitgegeben "mode". mit diesem
     wird entschieden, welche Funktion aufgerufen werden soll.
+
+     - "Anforderungen" Im Serverseitigem Skritp werden Inhaltsprüfungen (gemacht min 3), jeweils mit (isset und !empty)
+     - "Anforderungen" mindestens eine mathematische Berechnung durchgeführt. Die Hashfunktion ist Streng genommen mathematishch
 */
 
 // daten aus POST beziehen

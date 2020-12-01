@@ -2,9 +2,15 @@
 <html lang="de">
 <!--
     Willkommen das ist das index.html hier sind die Pflicht Sektionen der MEP
-    Aufgabe abgebildet. Die Navigationsleiste(responsive),
-    Informationssektion(responsive Bild/Text), Zusatzsektionen (Login und MyPets),
-    Pflicht Sektions Canvas und zuletzt die Pflicht Sektion mit einem Feedbackformular
+    Aufgabe abgebildet.
+    - Die Navigationsleiste(responsive)
+    - Informationssektion(responsive Bild/Text)
+    - Zusatzsektionen (Login und MyPets)
+    - Pflicht Sektions Canvas
+    - zuletzt die Pflicht Sektion mit einem Feedback formular
+
+    - "Anforderungen" Es wurden ausschliessloch relative URLS verwendet!
+    - "Anforderungen" Es wurden jeweils passende HTML-Container verwedet (img/semantische-struktur-webapp.png)
  -->
 <head>
     <title>Pet Organizer - Home</title>
@@ -13,6 +19,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
     <link rel="icon" type="image/png" href="img/favicon-16x16.png" sizes="16x16">
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
+    <!-- ANFORDERUNG: "einbinden direkt über w3schools.com" -->
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/style.css">
 
@@ -21,16 +28,16 @@
 </head>
 <body>
 
-<header class="w3-container w3-center">
+<header id="top-pos" class="w3-container w3-center">
     <img src="img/logo.svg">
     <br>
     <br>
-    <!-- ANFORDERUNG: "Responsive Menu Hamburger siehe style.css" -->
+    <!-- ANFORDERUNG: "Responsive Navigations Menu Hamburger siehe style.css" -->
     <nav class="top-nav w3-bar">
-        <a href="index.html" class="w3-bar-item w3-button w3-hover-blue">Home</a>
-        <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Information</a>
-        <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Canvas</a>
-        <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Feedbackformular</a>
+        <a id="to-home" class="w3-bar-item w3-button w3-hover-blue">Home</a>
+        <a id="to-info" class="w3-bar-item w3-button w3-hover-blue">Information</a>
+        <a id="to-canvas" class="w3-bar-item w3-button w3-hover-blue">Canvas</a>
+        <a id="to-feedback" class="w3-bar-item w3-button w3-hover-blue">Feedback</a>
         <a href="javascript:void(0);" class="icon" onclick="toggle_menu()">
             <i class="fa fa-bars"></i>
         </a>
@@ -40,7 +47,7 @@
 
 <main class="w3-container">
     <article>
-        <!-- ANFORDERUNG: "Pflicht Information mit min. 1 Paragraph und 1 Bild" -->
+        <!-- ANFORDERUNG: "Pflicht Information mit min. 1 Paragraph und 1 Bild Responsive" -->
         <section id="information_section">
             <h1>Pet Organizer</h1>
             <div class="w3-row">
@@ -124,7 +131,7 @@
         </section>
         <!-- Anforderung: "Pflicht Canvas Zeichnungs Aufgabe" -->
         <section id="canvas_section">
-            <h2>Progressbar Canvas</h2>
+            <h2>Canvas</h2>
             <canvas>
 
             </canvas>
@@ -133,7 +140,10 @@
         <!-- Anforderung: "Pflich Formular mit 3 untersch. input-typen " -->
         <section id="feedback_section">
             <h2>Feedback</h2>
-            <form id="feedback-form">
+            <form id="feedback-form" action="php/feedback.php" method="post">
+                <label class="w3-text">Von:</label>
+                <input name="mail" placeholder="deine@mail.addresse" type="email" class="w3-input w3-border">
+                <br>
                 <label class="w3-text">Nachricht</label>
                 <textarea name="message" placeholder="Schreibe mir eine Nachricht =)" class="w3-input w3-border"
                           rows="5" cols="50"></textarea>

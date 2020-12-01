@@ -1,12 +1,14 @@
 # MEP - Webt “Pet Organizer”
 
-Danke das Sie mich lesen :) !!! Im Idealfall in einem Markdown Viewer ;) 
+#### Danke das Sie mich lesen :) !!! 
+
+(Im Idealfall in einem Markdown Viewer) 
  
 Wichtige Informationen an den Leser des Codes: In allen Source Dateien gibt es einen
 Kommentar Kopf am Anfang der Datei. Darin ist jeweils beschrieben, welche Anforderungen
 in der Datei abgearbeitet werden. Die Anforderungen stammen aus dem Auftragsdokument 
 "Web Technologien HS2020 MEP: Schriftliche Arbeit / Martin Bättig und Raphael Ritter".
-Die Anforderung stelle ich jeweils in Quotes -> hier exemplarisch "Anforderung XY..."
+Die Anforderung stelle ich jeweils in Quotes -> hier exemplarisch "ANFORDERUNG XY..."
 
 Die History des Projekts kann auf meinem Github Profil eingesehen werden. Dort 
 befindet sich das Repository mit dem Source Code.
@@ -24,16 +26,13 @@ Diese besteht grundsätzlich aus den Bereichen bzw. Sektionen:
 ![Semantische Struktur](img/semantische-struktur-webapp.png)
 
 
-
 ### Verwendete Technologien
-es wurden folgende Technologien verwendet:
+es wurden ausschliesslich folgende Technologien verwendet:
 - HTML, Javascript, CSS, W3.CSS, PHP, MySQL, AJAX
-
 
 ### Requirements
 - MAMP oder XAMP (APACHE, PHP, MySQL)
 - Ausführen von der Datei "shema.sql" in phpMyAdmin
-
 
 ### Links
 Github Repository:

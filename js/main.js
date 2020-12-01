@@ -3,14 +3,26 @@
     wir im Zusammenhang mit dem Login verwaltet. Hierzu werden einige Async Calls benötigt um im Hintergrund die Login
     Operationen durchführen zu können. Die Pet "CRUD" Operationen werden auch hier verwaltet.
     Das Zeichnen des Canvas wird ebenfalls hier durchgeführt.
+
+    - "Anforderungen" Scrollen zur Sektion über die Nav JS Teil
 */
 
 // script am schluss des HTMLS intigrieren :)
 (function(){
     console.log("Document Ready!")
 
-    // zustand der Seite aktuallisieren
-    update_page();
+    // Scroll Anforderung umsetzten
+    document.getElementById("to-home")
+        .addEventListener('click', e => scroll_to(e, "top-pos"))
+
+    document.getElementById("to-info")
+        .addEventListener('click', e => scroll_to(e, "information_section"))
+
+    document.getElementById("to-canvas")
+        .addEventListener('click', e => scroll_to(e, "canvas_section"))
+
+    document.getElementById("to-feedback")
+        .addEventListener('click', e => scroll_to(e, "feedback_section"))
 
     // hier werden die Formulare geholt, diese werden per ajax bzw. mit fetch gehandhabt
     let login_form = document.getElementById("login-form");
@@ -31,7 +43,21 @@
     create_pet_form.addEventListener('submit', e => async_post_handling(e, update_page));
     update_pet_form.addEventListener('submit', e => async_post_handling(e, update_page));
 
+    // zustand der Seite aktuallisieren
+    update_page();
+
 })();
+
+// Scroll-To Funktion implementieren
+function scroll_to(_, section){
+    window.scroll({
+        behavior: 'smooth',
+        left: 0,
+        top: document.querySelector(`#${section}`).offsetTop
+    });
+}
+
+
 
 // mit dieser Methode wird der Zustand der Seite aktualisiert
 // wenn Requests gemacht wurden welche den State verändern
