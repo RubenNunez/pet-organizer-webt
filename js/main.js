@@ -37,11 +37,11 @@
     // sondern es soll async ausgeführt werden. Das Resultat modifiziert
     // direkt den DOM (ich möchte keinen Reload)
     login_form.addEventListener('submit', e => async_post_handling(e, update_page));
-    logout_form.addEventListener('submit', e => async_post_handling(e, update_page));
+    logout_form.addEventListener('submit', e => async_post_handling(e, update_page, true));
     register_form.addEventListener('submit', e => async_post_handling(e, update_page));
 
-    create_pet_form.addEventListener('submit', e => async_post_handling(e, update_page));
-    update_pet_form.addEventListener('submit', e => async_post_handling(e, update_page));
+    create_pet_form.addEventListener('submit', e => async_post_handling(e, update_page, true));
+    update_pet_form.addEventListener('submit', e => async_post_handling(e, update_page, true));
 
     // zustand der Seite aktuallisieren
     update_page();
@@ -88,7 +88,7 @@ function update_page(){
 }
 
 // Methode um den async post call an die php scripts zu senden
-function async_post_handling (e, action){
+function async_post_handling (e, action, suppress = false){ // nur statusMeldungen beim Login
     const form = e.target;
 
     // asynchrones laden des Login POST Requests
@@ -98,6 +98,11 @@ function async_post_handling (e, action){
     }).then(result => result.text())
         .then(text => {
             console.log(text);
+            if(!suppress){
+                document.getElementById('status-message').innerHTML = text;
+                document.getElementById('status-modal').style.display='block';
+            }
+
             action(); // invoke der mitgegebenen action
         });
 
