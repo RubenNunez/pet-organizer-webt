@@ -29,6 +29,7 @@ create table if not exists pets(petId int not null AUTO_INCREMENT,
                  petname varchar(100) not null,
                  birthday date,
                  chipId int unique null,
+                 petnote varchar(255),
                  userId int,
                  primary key(petId),
                  constraint fk_userId
@@ -40,7 +41,7 @@ values ('admin', 'admin@pet-organizer.com', '$2y$10$VC.cX/R00BMQSaKqFhVwS.nWfMdI
        ('service', 'service@pet-organizer.com', '$2y$10$xZRCRxwg4tOfX8ojHgJZIOnesOpm8aiz7Bzrcmh.yb04GN1pG0bUu', '+41123456891');
 
 -- hier werden auch schon zwei Tiere dem Admin zugeordnet bzw. hinzugefügt
-insert into pets(petname, birthday, chipId, userId)
-values ('kiko', 'März 2020', 123456, 1),
-       ('Lina', 'Juni 2017', 234567, 1);
+insert into pets(petname, birthday, chipId, petnote, userId)
+values ('kiko', '2020-01-01', 123456, 'note kiko', 1),
+       ('Lina', '2017-01-01', 234567, 'note Lina', 1);
 

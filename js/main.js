@@ -169,6 +169,8 @@ function read_pets(){
                                onclick="open_pet_update_modal(this.id)">
                                     <p>${pet.petname}</p>
                                     <p>${pet.birthday}</p>
+                                    <p>${pet.chipId}</p>
+                                    <p>${pet.petnote}</p>
                           </div>`);
             }
         });
@@ -202,7 +204,10 @@ function open_pet_update_modal(id){
         <label class="w3-text">ChipId</label>
         <input name="chipId" class="w3-input w3-border" type="number" value="${pet.chipId}">
         <br>
+        <label class="w3-text">Petnote</label>
+        <input name="petnote" class="w3-input w3-border" type="text" value="${pet.petnote}">
+        <br>
         <input name="crud" type="hidden" value="update">
-        <input name="id" type="hidden" value="${pet.id}">
+        <input name="petId" type="hidden" value="${pet.id}">
         <button type="submit" class="w3-btn w3-blue w3-block">Update</button>`);
 }

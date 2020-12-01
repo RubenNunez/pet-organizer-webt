@@ -31,14 +31,16 @@ function create(){
     session_start(); // Session wiederaufnehmen
 
     // daten aus POST lesen
-    $name = $_POST["petname"];
+    $petname = $_POST["petname"];
+    $petnote = $_POST["petnote"];
     $birthday = $_POST['birthday'];
     $chipId = $_POST['chipId'];
 
     $userId = $_SESSION['userId'];
 
     // prüfen ob alle Felder mitgegeben wurden und nicht leer sind
-    if(isset($name) && !empty($name) &&
+    if(isset($petname) && !empty($petname) &&
+       isset($petnote) &&
        isset($birthday) && !empty($birthday) &&
        isset($chipId) && !empty($chipId) &&
        isset($userId) && !empty($userId)){
@@ -47,8 +49,8 @@ function create(){
         if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
 
         // vorbereiten, binden und ausführen des Statements
-        $stmt = mysqli_prepare($conn, "insert into pets(petname, birthday, chipId, userId) values (?, ?, ?, ?);");
-        mysqli_stmt_bind_param($stmt,'ssss', $name, $birthday, $chipId, $userId);
+        $stmt = mysqli_prepare($conn, "insert into pets(petname, birthday, chipId, petnote, userId) values (?, ?, ?, ?, ?);");
+        mysqli_stmt_bind_param($stmt,'sssss', $petname, $birthday, $chipId, $petnote, $userId);
         $res = mysqli_stmt_execute($stmt);
 
         echo $res;
@@ -59,6 +61,44 @@ function create(){
         return;
     }
     echo "<p>Pet create fehlgeschlagen</p>";
+}
+
+function update(){
+    session_start(); // Session wiederaufnehmen
+
+    // daten aus POST lesen
+    $petname = $_POST["petname"];
+    $petId = $_POST["petId"];
+    $petnote = $_POST["petnote"];
+    $birthday = $_POST['birthday'];
+    $chipId = $_POST['chipId'];
+
+    $userId = $_SESSION['userId'];
+
+    // prüfen ob alle Felder mitgegeben wurden und nicht leer sind
+    if(isset($petname) && !empty($petname) &&
+       isset($petId) && !empty($petId) &&
+       isset($petnote) &&
+       isset($birthday) && !empty($birthday) &&
+       isset($chipId) && !empty($chipId) &&
+       isset($userId) && !empty($userId)){
+        // verbindung zur Datenbank herstellen
+        $conn= mysqli_connect("localhost", "root", "", "pet_organizer");
+        if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
+
+        // vorbereiten, binden und ausführen des Statements
+        $stmt = mysqli_prepare($conn, "update pets set petname = ?, birthday = ?, chipId = ?, petnote = ? where userId = ? and petId = ?");
+        mysqli_stmt_bind_param($stmt,'ssssss', $petname, $birthday, $chipId, $petnote, $userId, $petId);
+        $res = mysqli_stmt_execute($stmt);
+
+        echo $res;
+        echo "<p>success</p>";
+
+        // schliessen der Verbindung zur Datenbank
+        mysqli_close($conn);
+        return;
+    }
+    echo "<p>Pet update fehlgeschlagen</p>";
 }
 
 function read(){
@@ -73,7 +113,7 @@ function read(){
         if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
 
         // vorbereiten, binden und ausführen des Statements
-        $stmt = mysqli_prepare($conn, "select petId, petname, birthday, chipId from pets where userId = ?");
+        $stmt = mysqli_prepare($conn, "select petId, petname, birthday, chipId, petnote from pets where userId = ?");
         mysqli_stmt_bind_param($stmt,'i', $userId);
         mysqli_stmt_execute($stmt);
 
@@ -86,6 +126,7 @@ function read(){
             $pet =  new \stdClass();
             $pet->id = $row["petId"];
             $pet->petname = $row["petname"];
+            $pet->petnote = $row["petnote"];
             $pet->birthday = $row["birthday"];
             $pet->chipId = $row["chipId"];
             array_push($pets, $pet);
