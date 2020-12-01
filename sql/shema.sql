@@ -1,7 +1,7 @@
 /*
     Zusatztechnik Serverseitige Persistenz:
     dieses Script ertellt das nötige Shema für die Webapplikation.
-    Mit der Datenbanek wird die Serverseitige Persistenz sichergestellt.
+    Mit der Datenbank wird die Serverseitige Persistenz sichergestellt.
     Es werden bereits Daten eingefügt, sodass diejenige Person die diese MEP
     korrigiert, nicht selber einen Account erstellen muss.
 

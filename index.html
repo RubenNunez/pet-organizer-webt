@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="de">
+<!--
+    Willkommen das ist das index.html hier sind die Pflicht Sektionen der MEP
+    Aufgabe abgebildet. Die Navigationsleiste(responsive),
+    Informationssektion(responsive Bild/Text), Zusatzsektionen (Login und MyPets),
+    Pflicht Sektions Canvas und zuletzt die Pflicht Sektion mit einem Feedbackformular
+ -->
 <head>
     <title>Pet Organizer - Home</title>
     <meta charset="UTF-8">
@@ -9,41 +15,59 @@
     <link rel="icon" type="image/png" href="img/favicon-32x32.png" sizes="32x32">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="css/style.css">
+
+    <!-- import für die Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 
 <header class="w3-container w3-center">
     <img src="img/logo.svg">
     <br>
-    <!-- todo: hamburger menu implementieren-->
-    <nav class="w3-bar">
-        <a href="index.html" class="w3-bar-item w3-button">Home</a>
-        <a href="about.html" class="w3-bar-item w3-button">About</a>
+    <br>
+    <!-- Anforderung: "Responsive Menu Hamburger siehe style.css" -->
+    <nav class="top-nav w3-bar">
+        <a href="index.html" class="w3-bar-item w3-button w3-hover-blue">Home</a>
+        <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Information</a>
+        <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Canvas</a>
+        <a href="about.html" class="w3-bar-item w3-button w3-hover-blue">Feedbackformular</a>
+        <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+            <i class="fa fa-bars"></i>
+        </a>
     </nav>
     <hr>
 </header>
 
 <main class="w3-container">
     <article>
+        <!-- Anforderung: "Pflicht Information mit min. 1 Paragraph und 1 Bild" -->
         <section id="information_section">
-            <!-- todo: Bild hinzufügen 2 Spalten-->
             <h1>Pet Organizer</h1>
-            <p>Herzlich Willkommen, mit dieser Webapplikation kannst du deine Haustiere verwalten. Erstelle Einträge mit
-                deinen Haustieren, füge Notizen und sonnstige Daten zu deinen Tieren</p>
-            <h2>Informationen</h2>
-            <p>Als einheitliches Thema für die MEP wurde eine “Pet Organizer Webapplikation” gewählt.
-                Dieses Dokument dient der konzeptionellen Darstellung und Planung der Applikation. Die Applikation wird
-                als Model dargestellt, sodass alle Bewertungskrieterien erfüllt werden.</p>
-            <p>... hier folgt noch mehr Inhalt</p>
-            <strong>Verwendete Technologien:</strong>
-            <ul>
-                <li>PHP, MariaDB, Apache</li>
-                <li>W3.CSS (aus der Aufgabenstellung muss url absolut verwiesen werden)</li>
-                <li>Vue.js (aus der Aufgabenstellung muss url absolut verwiesen werden)</li>
-            </ul>
+            <div class="w3-row">
+                <div class="w3-half w3-mobile w3-padding-16">
+                    <p>Herzlich Willkommen, mit dieser Webapplikation kannst du deine Haustiere verwalten. Erstelle Einträge mit
+                        deinen Haustieren, füge Notizen und sonnstige Daten zu deinen Tieren</p>
+                    <h2>Informationen</h2>
+                    <p>Als einheitliches Thema für die MEP wurde eine “Pet Organizer Webapplikation” gewählt.
+                        Dieses Dokument dient der konzeptionellen Darstellung und Planung der Applikation. Die Applikation wird
+                        als Model dargestellt, sodass alle Bewertungskrieterien erfüllt werden.</p>
+                    <p>... hier folgt noch mehr Inhalt</p>
+                    <strong>Verwendete Technologien:</strong>
+                    <ul>
+                        <li>PHP, MariaDB, Apache</li>
+                        <li>W3.CSS (aus der Aufgabenstellung muss url absolut verwiesen werden)</li>
+                        <li>Vue.js (aus der Aufgabenstellung muss url absolut verwiesen werden)</li>
+                    </ul>
+                </div>
+                <div class="w3-half w3-mobile w3-padding-16 text-image">
+                    <img src="img/kiko.png">
+                    <img class="stoerer" src="img/pfote.svg">
+                    <p>Füge deine Haustiere hinzu! <br> 🐶🐱🐹🐰🐢🐍</p>
+                </div>
+            </div>
             <hr>
         </section>
-
+        <!-- Anforderung: "Zusatz Server Persistenz PHP MyPets" -->
         <section id="pets_section">
             <h2>My Pets</h2>
             ...
@@ -53,7 +77,7 @@
             </form>
             <hr>
         </section>
-
+        <!-- Anforderung: "Zusatz Server Persistenz PHP Login" -->
         <section id="login_section">
             <h2>Login & Registration</h2>
             <div class="w3-row">
@@ -93,7 +117,7 @@
             </div>
             <hr>
         </section>
-
+        <!-- Anforderung: "Pflicht Canvas Zeichnungs Aufgabe" -->
         <section id="canvas_section">
             <h2>Progressbar Canvas</h2>
             <canvas>
@@ -101,7 +125,7 @@
             </canvas>
             <hr>
         </section>
-
+        <!-- Anforderung: "Pflich Formular mit 3 untersch. input-typen " -->
         <section id="feedback_section">
             <h2>Feedback</h2>
             <form id="feedback-form">
@@ -121,7 +145,7 @@
 </aside>
 
 <footer class="w3-container w3-center">
-    created by Ruben Nunez © 2020 MEP HS20
+    by Ruben Nunez © 2020 MEP HS20
 </footer>
 
 </body>

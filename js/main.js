@@ -81,3 +81,9 @@ function getCookie(cookie) {
     }
     return "";
 }
+
+// Toggle Methode für das Hamburger Menu
+function toggleMenu(){
+    let top_nav = document.getElementsByClassName("top-nav")[0];
+    top_nav.classList.toggle("responsive");
+}

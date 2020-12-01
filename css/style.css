@@ -1,7 +1,9 @@
 /*
-
-
-
+    Hier befinden sich die Style Vorschriften für die Webapplikation
+    Spziell zu erwähnen sind die SVGs welche verwendet wurden.
+    Das HR element beispielsweise wurde so gestaltet, dass eine selbstgezeichnete
+    SVG line gezeichnet wird.
+    Die Anforderung für die MEP findet sich bei der Klasse .text-image
 */
 
 
@@ -23,8 +25,83 @@ canvas{
     width: 75%;
 }
 
-/* midestens ein Klassen-Selektor */
 .w3-card{
     border-radius: 25px;
     padding: 25px;
+}
+
+/* Anforderung: "midestens ein Klassen-Selektor" */
+.text-image{
+    display: inline;
+    position: relative;
+    text-align: center;
+}
+
+/* klassen selektor wählt alle img (aber nicht die img mit dem stoerer)
+unter der klasse .text-image */
+.text-image img:not(.stoerer) {
+    width: 75%;
+    max-width: 360px;
+}
+
+/* der Stoerer wird innerhalb des Bildes absolute positioniert */
+.stoerer{
+    position: absolute;
+    width: 25%;
+    max-width: 90px;
+    left: 50%;
+    bottom: 25%;
+}
+
+
+/* responsive nav bar Hamburger Menu "Anforderung responsive Menu" */
+
+.w3-center > .top-nav {
+    width: 100%;
+}
+
+.top-nav {
+    overflow: hidden;
+    background-color: #1d1d1d;
+}
+
+.top-nav a {
+    float: left;
+    display: block;
+    color: #2196F3;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.top-nav a:hover {
+    background-color: #2196F3;
+    color: white;
+}
+
+.top-nav .icon {
+    display: none;
+}
+
+@media screen and (max-width: 600px) {
+    .top-nav a:not(:default) {display: none;}
+    .top-nav a.icon {
+        float: right;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .top-nav.responsive {position: relative;}
+    .top-nav.responsive .icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+    .top-nav.responsive a {
+        float: none;
+        display: block;
+        text-align: left;
+    }
 }
