@@ -31,7 +31,7 @@ function create(){
     session_start(); // Session wiederaufnehmen
 
     // daten aus POST lesen
-    $name = $_POST["name"];
+    $name = $_POST["petname"];
     $birthday = $_POST['birthday'];
     $chipId = $_POST['chipId'];
 
@@ -73,7 +73,7 @@ function read(){
         if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
 
         // vorbereiten, binden und ausführen des Statements
-        $stmt = mysqli_prepare($conn, "select petname, birthday, chipId from pets where userId = ?");
+        $stmt = mysqli_prepare($conn, "select petId, petname, birthday, chipId from pets where userId = ?");
         mysqli_stmt_bind_param($stmt,'i', $userId);
         mysqli_stmt_execute($stmt);
 
@@ -84,6 +84,7 @@ function read(){
         $pets = array();
         while($row = mysqli_fetch_assoc($res)){
             $pet =  new \stdClass();
+            $pet->id = $row["petId"];
             $pet->petname = $row["petname"];
             $pet->birthday = $row["birthday"];
             $pet->chipId = $row["chipId"];

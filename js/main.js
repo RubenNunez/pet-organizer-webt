@@ -1,6 +1,6 @@
 /*
     In dieser Javascript Datei werden diverse Punkte der Applikation behandelt. Die Sichtbarkeit der Sektionen
-    wir im Zusammenhang mit dem Login verwaltet. Hierzu werden 3 AJAX Calls benötigt um im Hintergrund die Login
+    wir im Zusammenhang mit dem Login verwaltet. Hierzu werden einige AJAX Calls benötigt um im Hintergrund die Login
     Operationen durchführen zu können.
     Das Zeichnen des Canvas wird ebenfalls hier durchgeführt.
 */
@@ -27,7 +27,7 @@
     logout_form.addEventListener('submit', e => async_post_handling(e, update_page));
     register_form.addEventListener('submit', e => async_post_handling(e, update_page));
 
-    create_pet_form.addEventListener('submit', e => async_post_handling(e), update_page);
+    create_pet_form.addEventListener('submit', e => async_post_handling(e, update_page));
 
 })();
 
@@ -43,11 +43,16 @@ function update_page(){
     if(get_cookie('login') == 'true'){
         login_section.hidden = true;
         pets_section.hidden = false;
-        read_pets(); // pets abholen
     }else{
         login_section.hidden = false;
         pets_section.hidden = true;
     }
+
+    // pets abholen
+    read_pets();
+
+    // modal schliessen
+    document.getElementById('create-pet').style.display='none';
 
 }
 
@@ -62,7 +67,7 @@ function async_post_handling (e, action){
     }).then(result => result.text())
         .then(text => {
             console.log(text);
-            action(text); // invoke der mitgegebenen action
+            action(); // invoke der mitgegebenen action
         });
 
     // verhindern des standard verhaltens
@@ -93,7 +98,7 @@ function toggle_menu(){
 }
 
 // auslesen der Pets für einen eingeloggten user über Session gelöst
-function read_pets(where, html){
+function read_pets(){
     // formular erstellen
     let formData = new FormData();
     formData.append('crud','read');
@@ -107,11 +112,33 @@ function read_pets(where, html){
         body: formData
     }).then(result => result.json())
         .then(json => {
+
+            let child = pets_flexbox_container.firstElementChild;
+
+            while(child){
+                if(child.classList.contains('pet-add')){
+                    break;
+                } // die Kachel zum adden da lassen
+                pets_flexbox_container.removeChild(child);
+                child = pets_flexbox_container.firstElementChild;
+            }
+
             console.log(json);
             for (let i = 0; i < json.length; i++) {
                 let pet = json[i];
                 console.log(pet);
-                pets_flexbox_container.insertAdjacentHTML('afterbegin',`<div class="pet-box">${pet.petname}</div>`);
+                pets_flexbox_container.insertAdjacentHTML('afterbegin',
+                    `<div class="pet-box" 
+                               id="${pet.id}"
+                               onclick="open_pet_modal(this.id)">
+                                    <p>${pet.petname}</p>
+                                    <p>${pet.birthday}</p>
+                          </div>`);
             }
         });
+}
+
+
+function open_pet_modal(id){
+    document.getElementById('edit-pet').style.display='block';
 }

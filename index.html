@@ -160,14 +160,45 @@
                     <input name="petname" class="w3-input w3-border" type="text">
                     <br>
                     <label class="w3-text">Geburtstag</label>
-                    <input name="birthday" class="w3-input w3-border" type="text">
+                    <input name="birthday" class="w3-input w3-border" type="date">
                     <br>
                     <label class="w3-text">ChipId</label>
-                    <input name="password" class="w3-input w3-border" type="text">
+                    <input name="chipId" class="w3-input w3-border" type="number">
                     <br>
                     <input name="crud" type="hidden" value="create">
                     <button type="submit" class="w3-btn w3-blue">Create</button>
                 </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Edit Formular wird im Javascript bearbeitet -->
+    <div id="edit-pet" class="w3-modal">
+        <div class="w3-modal-content">
+            <div class="w3-container">
+            <span onclick="document.getElementById('edit-pet').style.display='none'"
+                  class="w3-btn w3-blue w3-display-topright">&times;</span>
+                <form id="edit-pet-form" action="php/pets.php" method="post">
+                    <p><strong>Edit Pet</strong></p>
+                    <br>
+                    <label class="w3-text">Petname</label>
+                    <input name="petname" class="w3-input w3-border" type="text">
+                    <br>
+                    <label class="w3-text">Geburtstag</label>
+                    <input name="birthday" class="w3-input w3-border" type="date">
+                    <br>
+                    <label class="w3-text">ChipId</label>
+                    <input name="chipId" class="w3-input w3-border" type="number">
+                    <br>
+                    <input name="crud" type="hidden" value="update">
+                    <button type="submit" class="w3-btn w3-blue w3-block">Update</button>
+                </form>
+                <br>
+                <form id="delete-pet-form" action="php/pets.php" method="post">
+                    <input name="crud" type="hidden" value="delete">
+                    <button type="submit" class="w3-btn w3-red w3-block">Delete</button>
+                </form>
+
             </div>
         </div>
     </div>
