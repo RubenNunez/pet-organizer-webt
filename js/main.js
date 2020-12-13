@@ -31,6 +31,7 @@
 
     let create_pet_form = document.getElementById("create-pet-form");
     let update_pet_form = document.getElementById("update-pet-form");
+    let delete_pet_form = document.getElementById("delete-pet-form");
 
     // hier wird der default event 'submit' sozusagen überschrieben
     // an dieser stelle möchte ich nicht das standart verhalten des POST Request,
@@ -42,13 +43,77 @@
 
     create_pet_form.addEventListener('submit', e => async_post_handling(e, update_page, true));
     update_pet_form.addEventListener('submit', e => async_post_handling(e, update_page, true));
+    delete_pet_form.addEventListener('submit', e => async_post_handling(e, update_page, true));
 
     // zustand der Seite aktuallisieren
     update_page();
 
+    draw_canvas();
+
 })();
 
-// Scroll-To Funktion implementieren
+// "Anforderung" Canvas zeichnen
+function draw_canvas(){
+    let canvas = document.getElementById('canvas');
+
+    let height = canvas.parentElement.clientHeight;
+    let width = canvas.parentElement.clientWidth;
+    let aspect = width/height;
+
+    canvas.height = canvas.parentElement.clientHeight;
+    canvas.width = height * aspect;
+
+    width = canvas.width;
+
+    let context = canvas.getContext('2d');
+    // An dieser Stelle würden die Tiere aus der Datenbank ausgelesen werden aus Zeitgründen habe ich das hier nicht implementiert
+    // Daher Mocke ich einfach die Daten um das Canvas zu zeichnen
+    let animals = ['cat','dog','rabbit','turtle','donkey'];
+    let padding = width/animals.length/2;
+
+    for(let i = 0; i < animals.length; i++){// padding berechnet
+
+        let mockHeight = Math.floor((Math.random() * height * 0.5) + height * 0.2);
+        let x = width * (1/(animals.length+4)) + width/(animals.length/i) + padding / 5;
+        let w = width * (1/(animals.length+4)) + 5;
+        let y = height - mockHeight;
+
+        // balken mit Prozenten zeichnen
+        context.beginPath();
+        context.strokeStyle = '#2196F3';
+        context.lineCap = 'butt';
+        context.lineWidth = w+10; // einfach prozentual zur breite
+        context.moveTo(x, height);
+        context.lineTo(x, y);
+        context.stroke()
+        context.closePath();
+        // um Mehr Zeichnungsoperationen zu erstellen habe ich mich entschlossen diese Balken 3D wirken zu lassen
+        // also so isometrisch
+        context.beginPath();
+        context.strokeStyle = '#2196F3';
+        context.lineCap = 'square';
+        context.fillStyle = '#ffffff'
+        context.lineWidth = 10;
+        context.moveTo(x + w/2,y)
+        context.lineTo(x,y-65);
+        context.lineTo(x - w, y-65);
+        context.lineTo(x-w/2,y);
+        context.moveTo(x - w-10, y-65);
+        context.lineTo(x-w-10,height);
+        context.fill();
+        context.stroke();
+        context.closePath();
+
+        // text zeichnen
+        context.font = '20px consolas';
+        context.fillStyle = '#ffffff'
+        let textWidth = context.measureText(animals[i]).width;
+        context.fillText( animals[i], width/(animals.length/i) + padding - textWidth/2 + w/4 , height + 25 - mockHeight);
+    }
+
+}
+
+// "Anforderung" Scroll-To Funktion implementieren
 function scroll_to(_, section){
     window.scroll({
         behavior: 'smooth',
@@ -57,10 +122,7 @@ function scroll_to(_, section){
     });
 }
 
-
-
 // mit dieser Methode wird der Zustand der Seite aktualisiert
-// wenn Requests gemacht wurden welche den State verändern
 function update_page(){
     // hier werden die Sektionen geholt (je nach loginstate sichtbar bzw unsichtbar)
     let pets_section = document.getElementById("pets_section");
@@ -82,14 +144,17 @@ function update_page(){
     // pets abholen
     if(get_cookie('login') == 'true'){ read_pets(); }
 
-    // modal schliessen
-    document.getElementById('create-pet').style.display='none';
-
+    // modal schliessen + hide panels after releod
+    document.getElementById('create-pet').style.display = 'none';
+    document.getElementById('update-pet').style.display = 'none';
 }
 
 // Methode um den async post call an die php scripts zu senden
 function async_post_handling (e, action, suppress = false){ // nur statusMeldungen beim Login
     const form = e.target;
+
+    // mir ist bewusst, dass der Lehrer gesagt hat das ich nicht die FETCH API verwenden soll..... jedoch hatte ich
+    // dieses Feature bereits umgesetz gehabt. Daher wird hier die neue fetch API verwendet. ...sorry
 
     // asynchrones laden des Login POST Requests
     fetch(form.action, {
@@ -185,6 +250,7 @@ function read_pets(){
 function open_pet_update_modal(id){
     document.getElementById('update-pet').style.display='block';
     let form = document.getElementById('update-pet-form');
+    let deleteForm = document.getElementById('delete-pet-form');
 
     let index = window.local_pets.findIndex(x => x.id == id);
     let pet = window.local_pets[index];
@@ -195,8 +261,13 @@ function open_pet_update_modal(id){
         form.removeChild(child);
         child = form.firstElementChild;
     }
+    child = deleteForm.firstElementChild;
+    while(child){
+        deleteForm.removeChild(child);
+        child = deleteForm.firstElementChild;
+    }
 
-    // neues Form erstellen
+    // neues Update Form erstellen
     form.insertAdjacentHTML('afterbegin',
         `<p><strong>Update ${pet.petname}</strong></p>
         <br>
@@ -215,4 +286,12 @@ function open_pet_update_modal(id){
         <input name="crud" type="hidden" value="update">
         <input name="petId" type="hidden" value="${pet.id}">
         <button type="submit" class="w3-btn w3-blue w3-block">Update</button>`);
+
+    // Delete Form wird hier mit der PetId bestückt
+    deleteForm.insertAdjacentHTML('afterbegin',
+        `<br>
+              <input name="crud" type="hidden" value="delete">
+              <input name="petId" type="hidden" value="${pet.id}">
+              <button type="submit" class="w3-btn w3-red w3-block">Delete</button>
+        <br>`);
 }

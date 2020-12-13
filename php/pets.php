@@ -142,3 +142,37 @@ function read(){
     echo "<p>Pet read fehlgeschlagen</p>";
 }
 
+function delete(){
+    session_start(); // Session wiederaufnehmen
+
+    // daten aus POST lesen
+    $petId = $_POST["petId"];
+    $userId = $_SESSION['userId'];
+
+    // prüfen ob alle Felder mitgegeben wurden und nicht leer sind
+    if(isset($userId) && !empty($userId)){
+        // verbindung zur Datenbank herstellen
+        $conn= mysqli_connect("localhost", "root", "", "pet_organizer");
+        if(!$conn) { echo"<p>Verbindung zur Datenbank fehlgeschlagen!</p>"; return; }
+
+        // vorbereiten, binden und ausführen des Statements
+        $stmt = mysqli_prepare($conn, "delete from pets where userId = ? and petId = ?");
+        mysqli_stmt_bind_param($stmt,'ii', $userId, $petId);
+        mysqli_stmt_execute($stmt);
+
+        // das resultat abholen
+        $res = mysqli_stmt_get_result($stmt);
+
+        // array für resultate herstellen
+        if($res){
+            echo "<p>success</p>";
+        }else{
+            echo "<p>Pet delete fehlgeschlagen</p>";
+        }
+
+        // schliessen der Verbindung zur Datenbank
+        mysqli_close($conn);
+        return;
+    }
+    echo "<p>Pet delete fehlgeschlagen</p>";
+}

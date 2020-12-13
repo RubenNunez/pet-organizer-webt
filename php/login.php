@@ -122,7 +122,7 @@ function register(){
             session_start(); // Session wird erstellt 2h
             $_SESSION['expire'] = time() + 3600 * 2;
             setcookie('user', $username, time() + 3600 * 2, '/');
-            echo "<p>success</p>";
+            echo "<p>Registrierung erfolgreich</p>";
         }
 
         // schliessen der Verbindung zur Datenbank

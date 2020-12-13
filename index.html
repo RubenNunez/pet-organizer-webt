@@ -53,16 +53,17 @@
             <div class="w3-row">
                 <div class="w3-half w3-mobile w3-padding-16">
                     <p>Herzlich Willkommen, mit dieser Webapplikation kannst du deine Haustiere verwalten. Erstelle Einträge mit
-                        deinen Haustieren, trage die Geburstage deiner Tiere ein und erfasse wichtige Notizen zu deinen liebsten.</p>
+                        deinen Haustieren, trage die Geburstage deiner Tiere ein und erfasse wichtige Notizen zu deine Liebsten.</p>
                     <h2>Informationen</h2>
                     <p>Als einheitliches Thema für die MEP WEBT wurde eine “Pet Organizer” Webapplikation gewählt. Die Applikation implementiert
                        ein einfaches Login / Registreirungssystem, ähnlich wie aus dem Unterricht. Es existiert ein "login.php" darin wird
                        die Serverseitige-Login-Funktionalität behandelt.</p>
-                    <p>Im weiteren können eingeloggte User Haustiere erfassen. Es stehen bereits zwei Accounts bereit, falls dich
+                    <p>Im weiteren können eingeloggte User Haustiere erfassen. Es stehen bereits zwei Accounts bereit, falls sich
                        der User nicht registrieren möchte: admin:admin! und service:service!</p>
+                    <p>Der Code wurde so gut wie möglich mit Kommentaren ausgeschmückt. Jede Datei hat einen Kommentar Kopf mit den behandelten Anforderungen.</p>
                     <p>Im Canvas wird ein Pi-Chart gezeichnet mit der Verteilung der Tiere Katzen/Hunde.
                        Das Canvas muss mit dem Button "Ausführen" getriggert werden.</p>
-                    <p>Als letzte Sektion wurde ein Feedback Formular erstellt, darin werden alle Anforderungen für Formulare abgearbeitet.</p>
+                    <p>Als letzte Sektion wurde ein Feedback Formular erstellt, dieses deckt einige "Anforderungen" zu den Formularen.</p>
                     <p>Ich empfehle noch das README.md zu lesen und das Repository dieser Webseite zu besuchen (siehe README.md)</p>
                     <strong>Ich wünsche dem User viel spass auf dem Pet Organizer!</strong>
                 </div>
@@ -77,6 +78,9 @@
         <!-- ANFORDERUNG: "Zusatz Server Persistenz PHP MyPets" -->
         <section id="pets_section">
             <h2>My Pets</h2>
+            <p>Hier kannst du deine Tiere erfassen, click auf <strong>Pet hinzufügen</strong> und fülle das Formular aus. Durch
+            den Create Button wird das Tier erstellt. Aufpassen die ChipId des Tieres muss eindeutig sein, sonnst gibt es einen Fehler.
+            Du kannst auch bestehende Tiere editieren in dem du die Kachel anklickst und das bearbeitungs Formular ausfüllst.</p>
             <div class="pets-flexbox-container">
                 <div class="pet-add pet-box">
                     <button onclick="document.getElementById('create-pet').style.display='block'"
@@ -132,23 +136,44 @@
         <!-- Anforderung: "Pflicht Canvas Zeichnungs Aufgabe" -->
         <section id="canvas_section">
             <h2>Canvas</h2>
-            <canvas>
-
+            <p>Dieses Canvas zeigt ein selbstgezeichnetes Balkendiagramm im Stil und Farben der Webseite.
+            Aktuell werden, die Daten sozusagen random generiert, angedacht wäre, dass sie aus der Datenbank gelesen würden.
+            Dazu müsste aber zuerst die Datenbank um den PetType erweitert werden. Da dies den Rahmen der MEP sprengen würde. Entschloss
+            ich mich kurzerhand dieses Feature nicht zu imlementieren und stattdessen die Zahlen random zu generieren</p>
+            <canvas id="canvas">
             </canvas>
+            <button class="w3-btn w3-blue" onclick="draw_canvas()">Berechnen</button>
             <hr>
         </section>
         <!-- Anforderung: "Pflich Formular mit 3 untersch. input-typen " -->
         <section id="feedback_section">
             <h2>Feedback</h2>
             <form id="feedback-form" action="php/feedback.php" method="post">
-                <label class="w3-text">Von:</label>
-                <input name="mail" placeholder="deine@mail.addresse" type="email" class="w3-input w3-border">
+                <div class="w3-row">
+                    <div class="w3-third">
+                        <label class="w3-text">Von:</label>
+                        <input name="mail" placeholder="deine@mail.addresse" type="email" class="w3-input w3-border">
+                    </div>
+                </div>
+                <br>
+                <div class="w3-row">
+                    <div class="w3-third">
+                        <label class="w3-text" for="pet-rating">Wie findest du den Pet Organizer?</label>
+                        <select class="w3-select w3-border" id="pet-rating" name="petrating">
+                            <option value="superPassed">Sehr Gut</option>
+                            <option value="passed">Gut</option>
+                            <option value="notpassed">Solala</option>
+                            <option value="totalfail">einfach nur schlecht MEP nicht bestanden</option>
+                        </select>
+                        <br>
+                    </div>
+                </div>
                 <br>
                 <label class="w3-text">Nachricht</label>
                 <textarea name="message" placeholder="Schreibe mir eine Nachricht =)" class="w3-input w3-border"
                           rows="5" cols="50"></textarea>
                 <br>
-                <button class="w3-btn w3-blue">senden</button>
+                <button class="w3-btn w3-blue">Senden</button>
             </form>
             <hr>
         </section>
@@ -232,7 +257,7 @@
 </aside>
 
 <footer class="w3-container w3-center">
-    by Ruben Nunez © 2020 MEP HS20
+    mit Stolz präsentiert von Ruben Nunez © 2020 MEP HS20
 </footer>
 
 </body>
