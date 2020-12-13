@@ -52,6 +52,20 @@
 
 })();
 
+// "Anforderung" js Formular Validierung
+function check_feedbackform(){
+    // hole das Feld "message" aus dem feedback formular
+    let message = document.getElementById("message");
+    if(message.value == ''){
+        // zeige mein internes Statusfenster
+        document.getElementById('status-message').innerHTML = "Das Feld Nachricht muss ausgefüllt sein!";
+        document.getElementById('status-modal').style.display='block';
+        return false;
+    }
+
+    return true;
+}
+
 // "Anforderung" Canvas zeichnen
 function draw_canvas(){
     let canvas = document.getElementById('canvas');

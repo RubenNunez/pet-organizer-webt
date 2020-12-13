@@ -151,15 +151,16 @@
             <form id="feedback-form" action="php/feedback.php" method="post">
                 <div class="w3-row">
                     <div class="w3-third">
-                        <label class="w3-text">Von:</label>
-                        <input name="mail" placeholder="deine@mail.addresse" type="email" class="w3-input w3-border">
+                        <label for="mail" class="w3-text">Von:</label>
+                        <!-- ANFORDERUNG Eine rein deklarative HTML anweisung für ein Pflichtfeld mit Required -->
+                        <input id="mail" required name="mail" placeholder="deine@mail.addresse" type="email" class="w3-input w3-border">
                     </div>
                 </div>
                 <br>
                 <div class="w3-row">
                     <div class="w3-third">
-                        <label class="w3-text" for="pet-rating">Wie findest du den Pet Organizer?</label>
-                        <select class="w3-select w3-border" id="pet-rating" name="petrating">
+                        <label for="pet-rating" class="w3-text">Wie findest du den Pet Organizer?</label>
+                        <select id="pet-rating" class="w3-select w3-border" name="petrating">
                             <option value="superPassed">Sehr Gut</option>
                             <option value="passed">Gut</option>
                             <option value="notpassed">Solala</option>
@@ -169,11 +170,11 @@
                     </div>
                 </div>
                 <br>
-                <label class="w3-text">Nachricht</label>
-                <textarea name="message" placeholder="Schreibe mir eine Nachricht =)" class="w3-input w3-border"
+                <label for="message" class="w3-text">Nachricht</label>
+                <textarea id="message" name="message" placeholder="Schreibe mir eine Nachricht =)" class="w3-input w3-border"
                           rows="5" cols="50"></textarea>
                 <br>
-                <button class="w3-btn w3-blue">Senden</button>
+                <button type="submit" onclick="return check_feedbackform()" class="w3-btn w3-blue">Senden</button>
             </form>
             <hr>
         </section>
