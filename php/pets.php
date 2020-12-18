@@ -6,7 +6,7 @@
 */
 
 // daten aus POST beziehen
-$crud = $_POST['crud']; // das ist das hidden input Field zum unterscheiden zwischen login/register
+$crud = $_POST['crud']; // das ist das hidden input Field zum unterscheiden zwischen CRUD
 
 if(strcmp($crud, "create") == 0){
     create();

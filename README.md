@@ -5,10 +5,11 @@
 (Im Idealfall in einem Markdown Viewer) 
  
 Wichtige Informationen an den Leser des Codes: In allen Source Dateien gibt es einen
-Kommentar Kopf am Anfang der Datei. Darin ist jeweils beschrieben, welche Anforderungen
-in der Datei abgearbeitet werden. Die Anforderungen stammen aus dem Auftragsdokument 
+Kommentar Kopf am Anfang der Datei und eine menge Kommentaren im Code selbst. 
+In der Kopfzeile sowie in den Kommentaren ist beschreiben, welche Anforderung bearbeitet wurden. 
+Die Anforderungen stammen aus dem Auftragsdokument 
 "Web Technologien HS2020 MEP: Schriftliche Arbeit / Martin Bättig und Raphael Ritter".
-Die Anforderung stelle ich jeweils in Quotes -> hier exemplarisch "ANFORDERUNG XY..."
+Die Anforderung stelle ich jeweils in Quotes -> hier exemplarisch "Anforderung" XY...
 
 Die History des Projekts kann auf meinem Github Profil eingesehen werden. Dort 
 befindet sich das Repository mit dem Source Code.
@@ -29,6 +30,7 @@ Diese besteht grundsätzlich aus den Bereichen bzw. Sektionen:
 ### Verwendete Technologien
 es wurden ausschliesslich folgende Technologien verwendet:
 - HTML, Javascript, CSS, W3.CSS, PHP, MySQL, AJAX
+- keine zusätzlich unzulässigen Techniken/Frameworks
 
 ### Requirements
 - MAMP oder XAMP (APACHE, PHP, MySQL)

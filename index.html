@@ -8,9 +8,10 @@
     - Zusatzsektionen (Login und MyPets)
     - Pflicht Sektions Canvas
     - zuletzt die Pflicht Sektion mit einem Feedback formular
+    (((für einen besseren Überblick können die Sektionen im vscode-editor eingeklappt werden "Collapse")))
 
-    - "Anforderungen" Es wurden ausschliessloch relative URLS verwendet!
-    - "Anforderungen" Es wurden jeweils passende HTML-Container verwedet (img/semantische-struktur-webapp.png)
+    - "Anforderung" Es wurden ausschliessloch relative URLS verwendet!
+    - "Anforderung" Es wurden jeweils passende HTML-Container verwedet (img/semantische-struktur-webapp.png)
  -->
 <head>
     <title>Pet Organizer - Home</title>
@@ -53,19 +54,21 @@
             <div class="w3-row">
                 <div class="w3-half w3-mobile w3-padding-16">
                     <p>Herzlich Willkommen, mit dieser Webapplikation kannst du deine Haustiere verwalten. Erstelle Einträge mit
-                        deinen Haustieren, trage die Geburstage deiner Tiere ein und erfasse wichtige Notizen zu deine Liebsten.</p>
+                        deinen Haustieren, trage die Geburstage deiner Tiere ein und erfasse wichtige Notizen zu deinen Liebsten.</p>
                     <h2>Informationen</h2>
                     <p>Als einheitliches Thema für die MEP WEBT wurde eine “Pet Organizer” Webapplikation gewählt. Die Applikation implementiert
                        ein einfaches Login / Registreirungssystem, ähnlich wie aus dem Unterricht. Es existiert ein "login.php" darin wird
                        die Serverseitige-Login-Funktionalität behandelt.</p>
                     <p>Im weiteren können eingeloggte User Haustiere erfassen. Es stehen bereits zwei Accounts bereit, falls sich
                        der User nicht registrieren möchte: admin:admin! und service:service!</p>
-                    <p>Der Code wurde so gut wie möglich mit Kommentaren ausgeschmückt. Jede Datei hat einen Kommentar Kopf mit den behandelten Anforderungen.</p>
-                    <p>Im Canvas wird ein Pi-Chart gezeichnet mit der Verteilung der Tiere Katzen/Hunde.
+                    <p>Der Code wurde so gut wie möglich mit Kommentaren ausgeschmückt. Jede Datei hat einen Kommentar
+                       Kopf und allgemeine Kommentare mit den behandelten Anforderungen.</p>
+                    <p>Im Canvas wird ein Balken-3D-Chart gezeichnet mit der Verteilung der Tieren Katzen/Hunde usw.
                        Das Canvas muss mit dem Button "Ausführen" getriggert werden.</p>
                     <p>Als letzte Sektion wurde ein Feedback Formular erstellt, dieses deckt einige "Anforderungen" zu den Formularen.</p>
                     <p>Ich empfehle noch das README.md zu lesen und das Repository dieser Webseite zu besuchen (siehe README.md)</p>
                     <strong>Ich wünsche dem User viel spass auf dem Pet Organizer!</strong>
+                    <strong>(Mehr INFO IM README.md)</strong>
                 </div>
                 <div class="w3-half w3-mobile w3-padding-16 text-image">
                     <img src="img/kiko.png">
@@ -145,15 +148,27 @@
             <button class="w3-btn w3-blue" onclick="draw_canvas()">Berechnen</button>
             <hr>
         </section>
-        <!-- Anforderung: "Pflich Formular mit 3 untersch. input-typen " -->
+        <!-- Anforderung: "Pflich Formular mit 3 untersch. input-typen" -->
         <section id="feedback_section">
             <h2>Feedback</h2>
-            <form id="feedback-form" action="php/feedback.php" method="post">
+            <form id="feedback-form" action="php/feedback.php" method="post" onsubmit="return check_feedbackform()">
                 <div class="w3-row">
                     <div class="w3-third">
                         <label for="mail" class="w3-text">Von:</label>
                         <!-- ANFORDERUNG Eine rein deklarative HTML anweisung für ein Pflichtfeld mit Required -->
                         <input id="mail" required name="mail" placeholder="deine@mail.addresse" type="email" class="w3-input w3-border">
+                        <br>
+                        <label for="vorname" class="w3-text">Vorname</label>
+                        <!-- ANFORDERUNG Mehrere Felder in Javascript prüfen -->
+                        <input id="vorname" name="vorname" type="text" class="w3-input w3-border">
+                        <br>
+                        <label for="nachname" class="w3-text">Nachname</label>
+                        <!-- ANFORDERUNG Mehrere Felder in Javascript prüfen -->
+                        <input id="nachname" name="nachname" type="text" class="w3-input w3-border">
+                        <br>
+                        <label for="kreditkarte" class="w3-text">Kreditkarte für Spenden VISA example. (4556655901967308)</label>
+                        <!-- ANFORDERUNG Mehrere Felder in Javascript mit etwas prüfen was nicht mit  -->
+                        <input id="kreditkarte" name="kreditkarte" type="number" class="w3-input w3-border">
                     </div>
                 </div>
                 <br>
@@ -174,7 +189,7 @@
                 <textarea id="message" name="message" placeholder="Schreibe mir eine Nachricht =)" class="w3-input w3-border"
                           rows="5" cols="50"></textarea>
                 <br>
-                <button type="submit" onclick="return check_feedbackform()" class="w3-btn w3-blue">Senden</button>
+                <button type="submit" class="w3-btn w3-blue">Senden</button>
             </form>
             <hr>
         </section>

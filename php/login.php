@@ -5,11 +5,11 @@
     wird entschieden, welche Funktion aufgerufen werden soll.
 
      - "Anforderungen" Im Serverseitigem Skritp werden Inhaltsprüfungen (gemacht min 3), jeweils mit (isset und !empty)
-     - "Anforderungen" mindestens eine mathematische Berechnung durchgeführt. Die Hashfunktion ist Streng genommen mathematishch
+     - "Anforderungen" mindestens eine mathematische Berechnung durchgeführt. Die Hashfunktion ist streng genommen mathematisch
 */
 
 // daten aus POST beziehen
-$mode = $_POST['mode']; // das ist das hidden input Field zum unterscheiden zwischen login/register
+$mode = $_POST['mode']; // das ist das hidden input Field zum unterscheiden zwischen login/register/logout
 
 if(strcmp($mode, "login") == 0){
     login();

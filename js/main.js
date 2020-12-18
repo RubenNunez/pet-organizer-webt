@@ -2,7 +2,8 @@
     In dieser Javascript Datei werden diverse Punkte der Applikation behandelt. Die Sichtbarkeit der Sektionen
     wir im Zusammenhang mit dem Login verwaltet. Hierzu werden einige Async Calls benötigt um im Hintergrund die Login
     Operationen durchführen zu können. Die Pet "CRUD" Operationen werden auch hier verwaltet.
-    Das Zeichnen des Canvas wird ebenfalls hier durchgeführt.
+    Das Zeichnen des Canvas wird ebenfalls hier durchgeführt. Formular Validierung ebenfalls. Scroll to Section auch.
+    (((für einen besseren Überblick können die Funktionen im vscode-editor eingeklappt werden "Collapse")))
 
     - "Anforderungen" Scrollen zur Sektion über die Nav JS Teil
 */
@@ -54,6 +55,37 @@
 
 // "Anforderung" js Formular Validierung
 function check_feedbackform(){
+
+    let vorname = document.getElementById("vorname");
+    if(vorname.value == ''){
+        // zeige mein internes Statusfenster
+        document.getElementById('status-message').innerHTML = "Vorname muss eingetragen werden";
+        document.getElementById('status-modal').style.display='block';
+        return false;
+    }
+
+    let nachname = document.getElementById("nachname");
+    if(nachname.value == ''){
+        // zeige mein internes Statusfenster
+        document.getElementById('status-message').innerHTML = "Nachname muss eingetragen werden";
+        document.getElementById('status-modal').style.display='block';
+        return false;
+    }
+
+    // reguläre Ausdrücke aus dieser Seite Quelle bezogen
+    let visa = new RegExp("^4[0-9]{12}(?:[0-9]{3})?$");
+    let amex = new RegExp("^3[47][0-9]{13}$");
+    let mastercard = new RegExp("^5[1-5][0-9]{14}$");
+
+    let kreditkarte = document.getElementById("kreditkarte");
+
+    if(kreditkarte.value == '' || !(visa.test(kreditkarte.value) || mastercard.test(kreditkarte.value) || amex.test(kreditkarte.value))){
+        // zeige mein internes Statusfenster
+        document.getElementById('status-message').innerHTML = "Kreditkarte ist falsch formatiert, gebe eine gültige Kreditkarten Nummer ein";
+        document.getElementById('status-modal').style.display='block';
+        return false;
+    }
+
     // hole das Feld "message" aus dem feedback formular
     let message = document.getElementById("message");
     if(message.value == ''){
@@ -66,7 +98,7 @@ function check_feedbackform(){
     return true;
 }
 
-// "Anforderung" Canvas zeichnen
+// "Anforderung" Canvas zeichnen 10 Operationen
 function draw_canvas(){
     let canvas = document.getElementById('canvas');
 
@@ -127,7 +159,7 @@ function draw_canvas(){
 
 }
 
-// "Anforderung" Scroll-To Funktion implementieren
+// "Anforderung" Scroll-To Funktion implementieren NAV
 function scroll_to(_, section){
     window.scroll({
         behavior: 'smooth',
@@ -206,7 +238,7 @@ function get_cookie(cookie) {
     return "";
 }
 
-// Toggle Methode für das Hamburger Menu
+// "Anforderung" Toggle Methode für das Hamburger Menu Responsive
 function toggle_menu(){
     let top_nav = document.getElementsByClassName("top-nav")[0];
     top_nav.classList.toggle("responsive");
@@ -231,8 +263,8 @@ function read_pets(){
             let child = pets_flexbox_container.firstElementChild;
             while(child){
                 if(child.classList.contains('pet-add')){
-                    break;
-                } // die Kachel zum adden da lassen
+                    break; // die Kachel zum adden da lassen
+                }
                 pets_flexbox_container.removeChild(child);
                 child = pets_flexbox_container.firstElementChild;
             }
