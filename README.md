@@ -1,8 +1,5 @@
 # MEP - Webt “Pet Organizer”
 
-#### Danke das Sie mich lesen :) !!! 
-
-(Im Idealfall in einem Markdown Viewer) 
  
 Wichtige Informationen an den Leser des Codes: In allen Source Dateien gibt es einen
 Kommentar Kopf am Anfang der Datei und eine menge Kommentaren im Code selbst. 
